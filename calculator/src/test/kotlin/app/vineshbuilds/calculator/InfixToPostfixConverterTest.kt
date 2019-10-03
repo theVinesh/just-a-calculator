@@ -6,7 +6,7 @@ import org.junit.Before
 import org.junit.Test
 
 internal class InfixToPostfixConverterTest {
-//-399.5157142857
+
     private var objectUndertest: InfixToPostfixConverter? = null
 
     @Before

@@ -18,7 +18,7 @@ object Operators {
     )
 
     fun get(operatorSymbol: String) = sybmolOperatorMap[operatorSymbol]
-        ?: throw IllegalStateException("No operator with $operatorSymbol is defined")
+        ?: throw NoSuchElementException("No operator with $operatorSymbol is defined")
 
     fun isOperator(symbol: String) = sybmolOperatorMap.keys.contains(symbol)
 
@@ -32,7 +32,7 @@ abstract class BinaryOperator(
 ) : Operator(symbol, weight) {
 
     override fun operate(vararg operands: Double): Double {
-        check(operands.size == 2) { "Binary IOperator operates on exactly 2 operands" }
+        check(operands.size == 2) { "Binary Operator operates on exactly 2 operands" }
         return operate.invoke(operands[0], operands[1])
     }
 }
