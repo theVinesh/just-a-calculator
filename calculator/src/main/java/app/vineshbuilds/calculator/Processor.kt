@@ -11,11 +11,7 @@ class Processor {
         if (postfixStack.isNotEmpty()) when (val token = postfixStack.pop()) {
             is Operand -> token.doubleValue
                 ?: throw IllegalStateException("Cannot convert ${token.symbol} to Double")
-            is BinaryOperator -> {
-                val b = solve(postfixStack)
-                val a = solve(postfixStack)
-                token.operate(a, b)
-            }
+            is BinaryOperator -> token.operate(solve(postfixStack), solve(postfixStack))
             else -> throw IllegalStateException("Unknown token $token")
         }
         else 0.0

@@ -15,11 +15,11 @@ class InfixToPostfixConverter {
         infixTokens.forEach {
             if (Operators.isOperator(it)) {
                 val operator = Operators.get(it)
-                if (operatorStack.isEmpty() || operator.weight >= operatorStack.peek().weight) {
+                if (operatorStack.isEmpty() || operator.weight > operatorStack.peek().weight) {
                     operatorStack.push(operator)
                 } else {
                     while (
-                        operatorStack.isNotEmpty() && operatorStack.peek().weight > operator.weight
+                        operatorStack.isNotEmpty() && operatorStack.peek().weight >= operator.weight
                     ) {
                         postfixTokens.push(operatorStack.pop())
                     }
@@ -48,7 +48,7 @@ class InfixToPostfixConverter {
 
         infixNotation.toCharArray().forEach {
             when (it) {
-                '+', '*', '/' -> {
+                '+', '*', '/', '%' -> {
                     flushIntoList()
                     tokens.add("$it")
                 }

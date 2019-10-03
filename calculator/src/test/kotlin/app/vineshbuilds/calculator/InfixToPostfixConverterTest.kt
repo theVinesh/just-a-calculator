@@ -20,12 +20,12 @@ internal class InfixToPostfixConverterTest {
     }
 
     @Test
-    fun convert() {
-        val infixNotation = "15+-23*18.01-2/7"
+    fun convert__simple_valid_input() {
+        val infixNotation = "11-2+7"
         val output = objectUndertest?.convertToPostfix(infixNotation)
 
         val expectedOutput = listOf(
-            "15", "-23", "18.01", "*", "2", "7", "/", "-", "+"
+            "11", "2", "-", "7", "+"
         )
         assert(expectedOutput.size == output?.size) {
             "Expected no.of token did not match"
@@ -34,6 +34,46 @@ internal class InfixToPostfixConverterTest {
             assert(expectedOutput[index] == token.symbol)
             {
                 "index: '$index' expected to be '${expectedOutput[index]}' but is '$token'\n" +
+                        "expected : $expectedOutput\n actual : $output"
+            }
+        }
+    }
+
+    @Test
+    fun convert__valid_input() {
+        val infixNotation = "15+-23*18.01-2/7"
+        val output = objectUndertest?.convertToPostfix(infixNotation)
+
+        val expectedOutput = listOf(
+            "15", "-23", "18.01", "*", "+", "2", "7", "/", "-"
+        )
+        assert(expectedOutput.size == output?.size) {
+            "Expected no.of token did not match"
+        }
+        output?.forEachIndexed { index, token ->
+            assert(expectedOutput[index] == token.symbol)
+            {
+                "index: '$index' expected to be '${expectedOutput[index]}' but is '$token'\n" +
+                        "expected : $expectedOutput\n actual : $output"
+            }
+        }
+    }
+
+    @Test
+    fun tokenize__simple_valid_input() {
+        val infixNotation = "11-2+7"
+        val output = objectUndertest?.tokenize(infixNotation)
+
+        val expectedOutput = listOf(
+            "11", "-", "2", "+", "7"
+        )
+        assert(expectedOutput.size == output?.size) {
+            "Expected no.of token did not match\n expected : $expectedOutput\n actual : $output"
+        }
+        output?.forEachIndexed { index, token ->
+            assert(expectedOutput[index] == token)
+            {
+                "index: $index expected to be '${expectedOutput[index]}' but is '$token'\n" +
                         "expected : $expectedOutput\n actual : $output"
             }
         }

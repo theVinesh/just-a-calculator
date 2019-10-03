@@ -18,11 +18,11 @@ class ProcessorTest {
             push(Operand("-23"))
             push(Operand("18.01"))
             push(Operators.Mul)
+            push(Operators.Add)
             push(Operand("2"))
             push(Operand("7"))
             push(Operators.Div)
             push(Operators.Sub)
-            push(Operators.Add)
         }
         objectUnderTest = Processor()
     }
