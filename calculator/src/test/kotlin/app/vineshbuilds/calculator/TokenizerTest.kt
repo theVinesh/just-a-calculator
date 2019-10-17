@@ -1,62 +1,20 @@
 package app.vineshbuilds.calculator
 
-
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
-internal class InfixToPostfixConverterTest {
-
-    private var objectUndertest: InfixToPostfixConverter? = null
+class TokenizerTest {
+    private var objectUndertest: TokenizerImpl? = null
 
     @Before
     fun setUp() {
-        objectUndertest = InfixToPostfixConverter()
+        objectUndertest = TokenizerImpl()
     }
 
     @After
     fun tearDown() {
         objectUndertest = null
-    }
-
-    @Test
-    fun convert__simple_valid_input() {
-        val infixNotation = "11-2+7"
-        val output = objectUndertest?.convertToPostfix(infixNotation)
-
-        val expectedOutput = listOf(
-            "11", "2", "-", "7", "+"
-        )
-        assert(expectedOutput.size == output?.size) {
-            "Expected no.of token did not match"
-        }
-        output?.forEachIndexed { index, token ->
-            assert(expectedOutput[index] == token.symbol)
-            {
-                "index: '$index' expected to be '${expectedOutput[index]}' but is '$token'\n" +
-                        "expected : $expectedOutput\n actual : $output"
-            }
-        }
-    }
-
-    @Test
-    fun convert__valid_input() {
-        val infixNotation = "15+-23*18.01-2/7"
-        val output = objectUndertest?.convertToPostfix(infixNotation)
-
-        val expectedOutput = listOf(
-            "15", "-23", "18.01", "*", "+", "2", "7", "/", "-"
-        )
-        assert(expectedOutput.size == output?.size) {
-            "Expected no.of token did not match"
-        }
-        output?.forEachIndexed { index, token ->
-            assert(expectedOutput[index] == token.symbol)
-            {
-                "index: '$index' expected to be '${expectedOutput[index]}' but is '$token'\n" +
-                        "expected : $expectedOutput\n actual : $output"
-            }
-        }
     }
 
     @Test

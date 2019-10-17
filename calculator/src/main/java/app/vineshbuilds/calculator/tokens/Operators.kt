@@ -1,16 +1,14 @@
 package app.vineshbuilds.calculator.tokens
 
 object Operators {
-    object Add : BinaryOperator("+", WEIGHT_ADD_SUB, { a, b -> a + b })
 
-    object Sub : BinaryOperator("-", WEIGHT_ADD_SUB, { a, b -> b - a })
+    const val WEIGHT_ADD_SUB = 1
+    const val WEIGHT_MUL_DIV = 2
 
-    object Mul : BinaryOperator("*", WEIGHT_MUL_DIV, { a, b -> a * b })
+    fun getOperatorFor(symbol: String): Operator = symbolOperatorMap[symbol]
+        ?: throw NoSuchElementException("No operator with $symbol is defined")
 
-    object Div : BinaryOperator("/", WEIGHT_MUL_DIV, { a, b -> b / a })
-
-    object Mod : BinaryOperator("%", WEIGHT_MUL_DIV, { a, b -> b % a })
-
+    fun isOperator(symbol: String) = symbolOperatorMap.keys.contains(symbol)
 
     private val symbolOperatorMap = mapOf(
         "+" to Add,
@@ -20,13 +18,17 @@ object Operators {
         "%" to Mod
     )
 
-    fun get(operatorSymbol: String) = symbolOperatorMap[operatorSymbol]
-        ?: throw NoSuchElementException("No operator with $operatorSymbol is defined")
+    //All operator definitions go here
 
-    fun isOperator(symbol: String) = symbolOperatorMap.keys.contains(symbol)
+    object Add : BinaryOperator("+", WEIGHT_ADD_SUB, { a, b -> a + b })
 
-    const val WEIGHT_ADD_SUB = 1
-    const val WEIGHT_MUL_DIV = 2
+    object Sub : BinaryOperator("-", WEIGHT_ADD_SUB, { a, b -> b - a })
+
+    object Mul : BinaryOperator("*", WEIGHT_MUL_DIV, { a, b -> a * b })
+
+    object Div : BinaryOperator("/", WEIGHT_MUL_DIV, { a, b -> b / a })
+
+    object Mod : BinaryOperator("%", WEIGHT_MUL_DIV, { a, b -> b % a })
 }
 
 abstract class BinaryOperator(
