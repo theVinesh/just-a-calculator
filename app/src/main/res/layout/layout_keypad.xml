@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="app.vineshbuilds.justacalculator.ui.main.components.KeypadVm" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:background="@color/colorPrimary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <include
+                layout="@layout/layout_button"
+                app:vm="@{vm.operands[1]}" />
+
+            <include
+                layout="@layout/layout_button"
+                app:vm="@{vm.operands[2]}" />
+
+            <include
+                layout="@layout/layout_button"
+                app:vm="@{vm.operands[3]}" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <include
+                layout="@layout/layout_button"
+                app:vm="@{vm.operands[4]}" />
+
+            <include
+                layout="@layout/layout_button"
+                app:vm="@{vm.operands[5]}" />
+
+            <include
+                layout="@layout/layout_button"
+                app:vm="@{vm.operands[6]}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <include
+                layout="@layout/layout_button"
+                app:vm="@{vm.operands[7]}" />
+
+            <include
+                layout="@layout/layout_button"
+                app:vm="@{vm.operands[8]}" />
+
+            <include
+                layout="@layout/layout_button"
+                app:vm="@{vm.operands[9]}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <include
+                layout="@layout/layout_button"
+                app:vm="@{vm.decimal}" />
+
+            <include
+                layout="@layout/layout_button"
+                app:vm="@{vm.operands[0]}" />
+
+            <include
+                layout="@layout/layout_button"
+                app:vm="@{vm.delete}" />
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>

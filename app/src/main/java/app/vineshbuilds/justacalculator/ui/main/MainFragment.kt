@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import app.vineshbuilds.justacalculator.R
-import kotlinx.android.synthetic.main.main_fragment.*
+import app.vineshbuilds.justacalculator.databinding.MainFragmentBinding
 
 class MainFragment : Fragment() {
 
@@ -16,20 +14,19 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var binding: MainFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.main_fragment, container, false)
+    ): View {
+        binding = MainFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-
-        equalsButton.setOnClickListener {
-            input.setText(viewModel.equals(input.text.toString()), TextView.BufferType.EDITABLE)
-        }
+        binding.vm = ViewModelProviders.of(this).get(MainViewModel::class.java)
     }
 
 }
