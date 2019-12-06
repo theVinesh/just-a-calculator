@@ -11,7 +11,7 @@ class DisplayVm : ViewModel(), IDisplay {
     override fun set(value: String) = input.set(value)
 
     override fun append(value: String) = with(input) {
-        get().let { set(if (it.isBlank() || it.toDouble() == 0.0) value else it + value) }
+        get().let { set(if (it.isBlank()) value else it + value) }
     }
 
     override fun delete() = with(input) {

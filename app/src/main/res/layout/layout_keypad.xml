@@ -13,85 +13,119 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:background="@color/colorPrimary">
-
+        android:orientation="horizontal">
+        <!--Num Pad-->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="vertical"
+            android:background="@color/colorPrimary">
 
-            <include
-                layout="@layout/layout_button"
-                app:vm="@{vm.operands[1]}" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-            <include
-                layout="@layout/layout_button"
-                app:vm="@{vm.operands[2]}" />
+                <include
+                    layout="@layout/layout_button"
+                    app:vm="@{vm.operands[1]}" />
 
-            <include
-                layout="@layout/layout_button"
-                app:vm="@{vm.operands[3]}" />
+                <include
+                    layout="@layout/layout_button"
+                    app:vm="@{vm.operands[2]}" />
+
+                <include
+                    layout="@layout/layout_button"
+                    app:vm="@{vm.operands[3]}" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <include
+                    layout="@layout/layout_button"
+                    app:vm="@{vm.operands[4]}" />
+
+                <include
+                    layout="@layout/layout_button"
+                    app:vm="@{vm.operands[5]}" />
+
+                <include
+                    layout="@layout/layout_button"
+                    app:vm="@{vm.operands[6]}" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <include
+                    layout="@layout/layout_button"
+                    app:vm="@{vm.operands[7]}" />
+
+                <include
+                    layout="@layout/layout_button"
+                    app:vm="@{vm.operands[8]}" />
+
+                <include
+                    layout="@layout/layout_button"
+                    app:vm="@{vm.operands[9]}" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <include
+                    layout="@layout/layout_button"
+                    app:vm="@{vm.decimal}" />
+
+                <include
+                    layout="@layout/layout_button"
+                    app:vm="@{vm.operands[0]}" />
+
+                <include
+                    layout="@layout/layout_button"
+                    app:vm="@{vm.delete}" />
+            </LinearLayout>
         </LinearLayout>
-
-
+        <!--Operator Pad-->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:background="@color/colorPrimaryDark">
 
             <include
                 layout="@layout/layout_button"
-                app:vm="@{vm.operands[4]}" />
+                app:vm="@{vm.operators[0]}" />
 
             <include
                 layout="@layout/layout_button"
-                app:vm="@{vm.operands[5]}" />
+                app:vm="@{vm.operators[1]}" />
 
             <include
                 layout="@layout/layout_button"
-                app:vm="@{vm.operands[6]}" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+                app:vm="@{vm.operators[2]}" />
 
             <include
                 layout="@layout/layout_button"
-                app:vm="@{vm.operands[7]}" />
+                app:vm="@{vm.operators[3]}" />
 
             <include
                 layout="@layout/layout_button"
-                app:vm="@{vm.operands[8]}" />
-
-            <include
-                layout="@layout/layout_button"
-                app:vm="@{vm.operands[9]}" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <include
-                layout="@layout/layout_button"
-                app:vm="@{vm.decimal}" />
-
-            <include
-                layout="@layout/layout_button"
-                app:vm="@{vm.operands[0]}" />
-
-            <include
-                layout="@layout/layout_button"
-                app:vm="@{vm.delete}" />
+                app:vm="@{vm.operators[4]}" />
         </LinearLayout>
     </LinearLayout>
-
 </layout>

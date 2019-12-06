@@ -18,6 +18,14 @@ class KeypadVm(display: IDisplay) : ViewModel() {
         SymbolButtonVm("8", display),
         SymbolButtonVm("9", display)
     )
+    val operators = arrayOf(
+        SymbolButtonVm("+", display),
+        SymbolButtonVm("-", display),
+        SymbolButtonVm("/", display),
+        SymbolButtonVm("*", display),
+        SymbolButtonVm("4", display),
+        SymbolButtonVm("5", display)
+    )
     val decimal = SymbolButtonVm(".", display)
     val delete = object : ActOnDisplayButtonVm("DEL", display, { it.delete() }){}
 }
