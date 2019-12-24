@@ -1,14 +1,25 @@
 package app.vineshbuilds.calculator
 
+import app.vineshbuilds.calculator.tokens.BinaryOperator.Sub
+import app.vineshbuilds.calculator.tokens.Operand
+import app.vineshbuilds.calculator.tokens.Token
+import app.vineshbuilds.calculator.tokens.getOperatorFor
+
 class TokenizerImpl : ITokenizer {
 
-    override fun tokenize(infixNotation: String): List<String> {
-        val tokens = mutableListOf<String>()
+    override fun tokenize(infixNotation: String): List<Token> {
+        val tokens = mutableListOf<Token>()
         val stringBuilder = StringBuilder()
 
         fun flushIntoList() {
             if (stringBuilder.isNotBlank()) {
-                tokens.add(stringBuilder.toString())
+                tokens.add(stringBuilder.toString().let {
+                    try {
+                        getOperatorFor(it)
+                    } catch (_: NoSuchElementException) {
+                        Operand(it)
+                    }
+                })
                 stringBuilder.clear()
             }
         }
@@ -17,19 +28,18 @@ class TokenizerImpl : ITokenizer {
             when (it) {
                 '+', '*', '/', '%' -> {
                     flushIntoList()
-                    tokens.add("$it")
+                    tokens.add(getOperatorFor("$it"))
                 }
                 '-' -> {
                     flushIntoList()
-                    if (tokens.lastOrNull()?.toDoubleOrNull() != null) {
-                        tokens.add("$it")
-                    } else {
+                    if (tokens.isNotEmpty() && tokens.last().isOperator()) {
                         //negative number
                         stringBuilder.append(it)
+                    } else {
+                        tokens.add(Sub)
                     }
                 }
                 else -> stringBuilder.append(it)
-
             }
         }
         flushIntoList()

@@ -29,7 +29,7 @@ class TokenizerTest {
             "Expected no.of token did not match\n expected : $expectedOutput\n actual : $output"
         }
         output?.forEachIndexed { index, token ->
-            assert(expectedOutput[index] == token)
+            assert(expectedOutput[index] == token.symbol)
             {
                 "index: $index expected to be '${expectedOutput[index]}' but is '$token'\n" +
                         "expected : $expectedOutput\n actual : $output"
@@ -49,7 +49,7 @@ class TokenizerTest {
             "Expected no.of token did not match\n expected : $expectedOutput\n actual : $output"
         }
         output?.forEachIndexed { index, token ->
-            assert(expectedOutput[index] == token)
+            assert(expectedOutput[index] == token.symbol)
             {
                 "index: $index expected to be '${expectedOutput[index]}' but is '$token'\n" +
                         "expected : $expectedOutput\n actual : $output"

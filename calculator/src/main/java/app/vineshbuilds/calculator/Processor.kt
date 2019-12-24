@@ -10,8 +10,8 @@ class Processor(private val tokenizer: ITokenizer) {
         val postfixTokens = Stack<Token>()
         val operatorStack = Stack<Operator>()
         infixTokens.forEach {
-            if (Operators.isOperator(it)) {
-                val operator = Operators.getOperatorFor(it)
+            if (it.isOperator()) {
+                val operator = getOperatorFor(it.symbol)
                 if (operatorStack.isEmpty() || operator.weight > operatorStack.peek().weight) {
                     operatorStack.push(operator)
                 } else {
@@ -23,7 +23,7 @@ class Processor(private val tokenizer: ITokenizer) {
                     operatorStack.push(operator)
                 }
             } else {
-                postfixTokens.push(Operand(it))
+                postfixTokens.push(it)
             }
         }
         while (operatorStack.isNotEmpty()) {

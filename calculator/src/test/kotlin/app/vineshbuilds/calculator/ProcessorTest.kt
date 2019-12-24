@@ -1,5 +1,7 @@
 package app.vineshbuilds.calculator
 
+import app.vineshbuilds.calculator.tokens.BinaryOperator.*
+import app.vineshbuilds.calculator.tokens.Operand
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -25,7 +27,17 @@ class ProcessorTest {
     fun solve() {
         val input = "15+-23*18.01-2/7"
         Mockito.`when`(tokenizer.tokenize(input)).thenReturn(
-            listOf("15", "+", "-23", "*", "18.01", "-", "2", "/", "7")
+            listOf(
+                "15".operand(),
+                Add,
+                "-23".operand(),
+                Mul,
+                "18.01".operand(),
+                Sub,
+                "2".operand(),
+                Div,
+                "7".operand()
+            )
         )
         val output = objectUnderTest?.solve(input)
         assert(output == -399.5157142857143) {
@@ -37,7 +49,13 @@ class ProcessorTest {
     fun convert__simple_valid_input() {
         val input = "11-2+7"
         Mockito.`when`(tokenizer.tokenize(input)).thenReturn(
-            listOf("11", "-", "2", "+", "7")
+            listOf(
+                "11".operand(),
+                Sub,
+                "2".operand(),
+                Add,
+                "7".operand()
+            )
         )
         val output = objectUnderTest?.convertToPostfix(input)
 
@@ -61,7 +79,17 @@ class ProcessorTest {
         val input = "15+-23*18.01-2/7"
 
         Mockito.`when`(tokenizer.tokenize(input)).thenReturn(
-            listOf("15", "+", "-23", "*", "18.01", "-", "2", "/", "7")
+            listOf(
+                "15".operand(),
+                Add,
+                "-23".operand(),
+                Mul,
+                "18.01".operand(),
+                Sub,
+                "2".operand(),
+                Div,
+                "7".operand()
+            )
         )
 
         val output = objectUnderTest?.convertToPostfix(input)
@@ -82,4 +110,5 @@ class ProcessorTest {
         }
     }
 
+    private fun String.operand() = Operand(this)
 }
