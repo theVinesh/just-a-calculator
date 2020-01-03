@@ -1,9 +1,9 @@
 package app.vineshbuilds.calculator
 
-import app.vineshbuilds.calculator.tokens.BinaryOperator.Sub
+import app.vineshbuilds.calculator.operators.BinaryOperator
 import app.vineshbuilds.calculator.tokens.Operand
 import app.vineshbuilds.calculator.tokens.Token
-import app.vineshbuilds.calculator.tokens.getOperatorFor
+import app.vineshbuilds.calculator.operators.UnaryOperator
 
 class TokenizerImpl : ITokenizer {
 
@@ -11,38 +11,31 @@ class TokenizerImpl : ITokenizer {
         val tokens = mutableListOf<Token>()
         val stringBuilder = StringBuilder()
 
-        fun flushIntoList() {
+        fun pushOperandAndClearBuffer() {
             if (stringBuilder.isNotBlank()) {
-                tokens.add(stringBuilder.toString().let {
-                    try {
-                        getOperatorFor(it)
-                    } catch (_: NoSuchElementException) {
-                        Operand(it)
-                    }
-                })
+                tokens.add(Operand(stringBuilder.toString()))
                 stringBuilder.clear()
             }
         }
 
         infixNotation.toCharArray().forEach {
             when (it) {
-                '+', '*', '/', '%' -> {
-                    flushIntoList()
-                    tokens.add(getOperatorFor("$it"))
-                }
-                '-' -> {
-                    flushIntoList()
-                    if (tokens.isNotEmpty() && tokens.last().isOperator()) {
-                        //negative number
-                        stringBuilder.append(it)
+                ADD.first, MUL.first, DIV.first, MOD.first, NEG.first -> {
+                    pushOperandAndClearBuffer()
+                    if (NEG.first == it) {
+                        if (tokens.isEmpty() || tokens.last().isOperator()) {
+                            tokens.add((UnaryOperator.Negation))
+                        } else {
+                            tokens.add(BinaryOperator.Sub)
+                        }
                     } else {
-                        tokens.add(Sub)
+                        tokens.add(getOperatorFor(it))
                     }
                 }
                 else -> stringBuilder.append(it)
             }
         }
-        flushIntoList()
+        pushOperandAndClearBuffer()
         return tokens
     }
 }

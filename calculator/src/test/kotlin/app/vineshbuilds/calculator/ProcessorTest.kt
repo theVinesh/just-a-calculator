@@ -1,7 +1,8 @@
 package app.vineshbuilds.calculator
 
-import app.vineshbuilds.calculator.tokens.BinaryOperator.*
+import app.vineshbuilds.calculator.operators.BinaryOperator.*
 import app.vineshbuilds.calculator.tokens.Operand
+import app.vineshbuilds.calculator.operators.UnaryOperator.*
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -30,7 +31,8 @@ class ProcessorTest {
             listOf(
                 "15".operand(),
                 Add,
-                "-23".operand(),
+                Negation,
+                "23".operand(),
                 Mul,
                 "18.01".operand(),
                 Sub,
@@ -60,7 +62,7 @@ class ProcessorTest {
         val output = objectUnderTest?.convertToPostfix(input)
 
         val expectedOutput = listOf(
-            "11", "2", "-", "7", "+"
+            "11", "2", "sub", "7", "add"
         )
         assert(expectedOutput.size == output?.size) {
             "Expected no.of token did not match"
@@ -82,7 +84,8 @@ class ProcessorTest {
             listOf(
                 "15".operand(),
                 Add,
-                "-23".operand(),
+                Negation,
+                "23".operand(),
                 Mul,
                 "18.01".operand(),
                 Sub,
@@ -95,7 +98,7 @@ class ProcessorTest {
         val output = objectUnderTest?.convertToPostfix(input)
 
         val expectedOutput = listOf(
-            "15", "-23", "18.01", "*", "+", "2", "7", "/", "-"
+            "15", "23", "neg", "18.01", "mul", "add", "2", "7", "div", "sub"
         )
         assert(expectedOutput.size == output?.size) {
             "Expected no.of token did not match\n" +

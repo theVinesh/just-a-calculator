@@ -23,7 +23,7 @@ class TokenizerTest {
         val output = objectUndertest?.tokenize(infixNotation)
 
         val expectedOutput = listOf(
-            "11", "-", "2", "+", "7"
+            "11", "sub", "2", "add", "7"
         )
         assert(expectedOutput.size == output?.size) {
             "Expected no.of token did not match\n expected : $expectedOutput\n actual : $output"
@@ -43,7 +43,7 @@ class TokenizerTest {
         val output = objectUndertest?.tokenize(infixNotation)
 
         val expectedOutput = listOf(
-            "15", "+", "-23", "*", "18.01", "-", "2", "/", "7"
+            "15", "add", "neg", "23", "mul", "18.01", "sub", "2", "div", "7"
         )
         assert(expectedOutput.size == output?.size) {
             "Expected no.of token did not match\n expected : $expectedOutput\n actual : $output"

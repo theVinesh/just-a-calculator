@@ -1,5 +1,7 @@
 package app.vineshbuilds.calculator
 
+import app.vineshbuilds.calculator.operators.BinaryOperator
+import app.vineshbuilds.calculator.operators.UnaryOperator
 import app.vineshbuilds.calculator.tokens.*
 import java.util.*
 
@@ -10,20 +12,22 @@ class Processor(private val tokenizer: ITokenizer) {
         val postfixTokens = Stack<Token>()
         val operatorStack = Stack<Operator>()
         infixTokens.forEach {
-            if (it.isOperator()) {
-                val operator = getOperatorFor(it.symbol)
-                if (operatorStack.isEmpty() || operator.weight > operatorStack.peek().weight) {
-                    operatorStack.push(operator)
-                } else {
-                    while (
-                        operatorStack.isNotEmpty() && operatorStack.peek().weight >= operator.weight
-                    ) {
-                        postfixTokens.push(operatorStack.pop())
+            when (it) {
+                is Operator -> {
+                    if (operatorStack.isEmpty() || it.weight > operatorStack.peek().weight) {
+                        operatorStack.push(it)
+                    } else {
+                        while (
+                            operatorStack.isNotEmpty() && operatorStack.peek().weight >= it.weight
+                        ) {
+                            postfixTokens.push(operatorStack.pop())
+                        }
+                        operatorStack.push(it)
                     }
-                    operatorStack.push(operator)
                 }
-            } else {
-                postfixTokens.push(it)
+                is Operand -> {
+                    postfixTokens.push(it)
+                }
             }
         }
         while (operatorStack.isNotEmpty()) {
@@ -39,8 +43,8 @@ class Processor(private val tokenizer: ITokenizer) {
             is Operand -> token.doubleValue
                 ?: throw IllegalStateException("Cannot convert ${token.symbol} to Double")
             is BinaryOperator -> token.operate(solve(postfixStack), solve(postfixStack))
+            is UnaryOperator -> token.operate(solve(postfixStack))
             else -> throw IllegalStateException("Unknown token $token")
         }
         else 0.0
-
 }
