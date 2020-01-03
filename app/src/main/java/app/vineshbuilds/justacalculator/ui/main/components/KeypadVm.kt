@@ -1,10 +1,11 @@
 package app.vineshbuilds.justacalculator.ui.main.components
 
 import androidx.lifecycle.ViewModel
-import app.vineshbuilds.justacalculator.ui.main.buttons.ActOnDisplayButtonVm
+import app.vineshbuilds.calculator.IProcessor
+import app.vineshbuilds.justacalculator.ui.main.buttons.ActionButtonVm
 import app.vineshbuilds.justacalculator.ui.main.buttons.SymbolButtonVm
 
-class KeypadVm(display: IDisplay) : ViewModel() {
+class KeypadVm(display: IDisplay, processor: IProcessor) : ViewModel() {
 
     val operands = arrayOf(
         SymbolButtonVm("0", display),
@@ -23,8 +24,12 @@ class KeypadVm(display: IDisplay) : ViewModel() {
         SymbolButtonVm("-", display),
         SymbolButtonVm("/", display),
         SymbolButtonVm("*", display),
-        SymbolButtonVm("=", display)
+        ActionButtonVm("=") {
+            with(display) {
+                set(processor.solve(get()).toString())
+            }
+        }
     )
     val decimal = SymbolButtonVm(".", display)
-    val delete = object : ActOnDisplayButtonVm("DEL", display, { it.delete() }){}
+    val delete = ActionButtonVm("DEL") { display.delete() }
 }

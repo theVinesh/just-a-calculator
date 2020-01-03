@@ -10,12 +10,12 @@ import org.mockito.Mockito
 
 class ProcessorTest {
     lateinit var tokenizer: ITokenizer
-    private var objectUnderTest: Processor? = null
+    private var objectUnderTest: ProcessorImpl? = null
 
     @Before
     fun setUp() {
         tokenizer = Mockito.mock(ITokenizer::class.java)
-        objectUnderTest = Processor(tokenizer)
+        objectUnderTest = ProcessorImpl(tokenizer)
     }
 
     @After

@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         tools:context=".ui.main.MainFragment">
 
-        <EditText
+        <TextView
             android:id="@+id/input"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -24,19 +24,10 @@
             android:hint="0.0"
             android:text="@={vm.display.input}"
             android:textAlignment="textEnd"
-            android:textSize="28dp"
+            android:textSize="40sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/equalsButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> vm.equals()}"
-            android:text="="
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input" />
 
         <FrameLayout
             android:layout_width="0dp"
@@ -44,7 +35,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/equalsButton">
+            app:layout_constraintTop_toBottomOf="@+id/input">
 
             <include
                 layout="@layout/layout_keypad"

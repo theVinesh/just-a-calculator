@@ -2,10 +2,12 @@ package app.vineshbuilds.calculator
 
 import app.vineshbuilds.calculator.operators.BinaryOperator
 import app.vineshbuilds.calculator.operators.UnaryOperator
-import app.vineshbuilds.calculator.tokens.*
+import app.vineshbuilds.calculator.tokens.Operand
+import app.vineshbuilds.calculator.tokens.Operator
+import app.vineshbuilds.calculator.tokens.Token
 import java.util.*
 
-class Processor(private val tokenizer: ITokenizer) {
+class ProcessorImpl(private val tokenizer: ITokenizer) : IProcessor {
 
     fun convertToPostfix(infixNotation: String): Stack<Token> {
         val infixTokens = tokenizer.tokenize(infixNotation)
@@ -36,8 +38,9 @@ class Processor(private val tokenizer: ITokenizer) {
         return postfixTokens
     }
 
-    fun solve(infixNotation: String): Double = solve(convertToPostfix(infixNotation))
+    override fun solve(infixNotation: String): Double = solve(convertToPostfix(infixNotation))
 
+    @Throws(IllegalStateException::class)
     private fun solve(postfixStack: Stack<Token>): Double =
         if (postfixStack.isNotEmpty()) when (val token = postfixStack.pop()) {
             is Operand -> token.doubleValue
